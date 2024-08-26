@@ -6,5 +6,16 @@ service cloud.firestore {
       // create allow read for user with the same id
       allow read, write: if request.auth.uid == userId;
     }
+    match /categories/{categoryId} {
+      allow read: if request.auth.uid != null;
+    }
+
+    match /generations/{categoryId} {
+      allow read: if request.auth.uid != null;
+    }
+    
+    match /images/{categoryId} {
+      allow read: if request.auth.uid != null;
+    }
   }
 }

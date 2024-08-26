@@ -16,7 +16,7 @@ export class StorageService {
   }
 
   public async uploadFile(buffer: Buffer, path: string) {
-    const bucket = this.storage.bucket()
+    const bucket = this.storage.bucket('placeholder-image.appspot.com')
     const file = bucket.file(path)
     await file.save(buffer)
     return file

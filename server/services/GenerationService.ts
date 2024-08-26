@@ -1,9 +1,10 @@
 import type { Leonardo } from '@leonardo-ai/sdk'
 import { JobStatus, SdGenerationSchedulers, SdGenerationStyle, SdVersions } from '@leonardo-ai/sdk/sdk/models/shared'
 import { TransparencyType } from '@leonardo-ai/sdk/sdk/models/operations'
+import type { DocumentSnapshot } from 'firebase-admin/firestore'
 import { ItemService } from './ItemService'
 import type { ImageService } from './ImageService'
-import type { GenerationStatus, IGeneration } from '~~/shared/models'
+import type { GenerationStatus, IGeneration, WithId } from '~~/shared/models'
 import type { LeonardoGenerationEvent } from '~~/shared'
 
 export class GenerationService extends ItemService<IGeneration> {
@@ -54,9 +55,13 @@ export class GenerationService extends ItemService<IGeneration> {
     const { data: { object: { id: generationId, status, images } } } = event
 
     if (status === JobStatus.Complete) {
-      const generationRef = await this.getItem(generationId)
-
-      await Promise.all(images.map(image => this.imageService.createImage(generationRef, image)))
+      const generationRef = await this.getItem(generationId) as DocumentSnapshot<WithId<IGeneration>>
+      if (generationRef && generationRef.exists) {
+        const generation = generationRef.data() as WithId<IGeneration>
+        const userId = generation.createdBy as string
+        this.setUserId(userId)
+        await Promise.all(images.map(image => this.imageService.createImage(generationRef, image)))
+      }
     }
 
     await this.setGenerationStatus(generationId, status)

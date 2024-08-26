@@ -4,14 +4,15 @@ import type { IUser } from '~~/shared/models'
 
 export const useAuthentication = () => {
   const { getAuth } = useFirebase()
-  const { getItem, setItem } = useItem<IUser>('users')
+  const { setItem } = useItem<IUser>('users')
   const auth = getAuth()
   const toast = useToast()
 
   const currentUser = auth.currentUser!
 
   const middleware = async () => {
-    const user = await getCurrentUser()
+    console.debug('Auth middleware')
+    const user = auth.currentUser
     if (!user) {
       try {
         await signInAnonymously(auth)

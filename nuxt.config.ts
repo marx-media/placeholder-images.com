@@ -37,4 +37,12 @@ export default defineNuxtConfig({
       measurementId: 'G-0PY1VDWWKF',
     },
   },
+  runtimeConfig: {
+    leonardoApiKey: '',
+    openAi: {
+      apiKey: '',
+      organisationId: '',
+      projectId: ''
+    }
+  },
 })

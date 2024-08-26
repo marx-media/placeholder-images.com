@@ -1,3 +1,3 @@
 export default defineNuxtRouteMiddleware(async () => {
-  await useAuthentication().middleware()
+  // await useAuthentication().middleware()
 })

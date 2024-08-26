@@ -1,5 +1,4 @@
 export default defineNuxtPlugin(() => {
-  console.log('api-plugin')
   const cookies = useRequestHeader('cookie')
 
   const api = $fetch.create({

@@ -8,8 +8,8 @@ export type AnyItem = DocumentData & {
 export type IBase<T extends AnyItem> = WithFieldValue<T> & {
   createdAt: Date
   updatedAt: Date | null
-  createdBy: DocumentReference<IUser> | null
-  updatedBy: DocumentReference<IUser> | null
+  createdBy: DocumentReference<IUser> | string | null
+  updatedBy: DocumentReference<IUser> | string | null
 }
 
 export type WithId<T extends AnyItem> = IBase<T> & { id: string }

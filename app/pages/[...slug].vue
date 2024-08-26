@@ -13,6 +13,7 @@ useSeoMeta({
 })
 
 const currentUser = useCurrentUser()
+const generationId = ref('')
 </script>
 
 <template>
@@ -44,7 +45,14 @@ const currentUser = useCurrentUser()
           </div>
         </div>
       </template>
+      <template #links>
+        <div class="w-full max-w-xl">
+          <GenerationInput v-model:generation-id="generationId" :loading="false" />
+        </div>
+      </template>
     </ULandingHero>
-    <pre class="text-xs" v-text="{ currentUser }" />
+    <UContainer>
+      <pre class="text-xs" v-text="{ currentUser }" />
+    </UContainer>
   </div>
 </template>
