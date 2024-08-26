@@ -8,9 +8,7 @@
       "request": "launch",
       "name": "client: chrome",
       "url": "http://localhost:3000",
-      "webRoot": "${workspaceFolder}",
-      "runtimeExecutable": "C:\\Program Files\\Google\\Chrome\\Application",
-      "userDataDir": false
+      "webRoot": "${workspaceFolder}"
     },
     {
       "type": "node",

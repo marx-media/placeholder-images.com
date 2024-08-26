@@ -6,11 +6,11 @@ definePageMeta({
 })
 
 useSeoMeta({
-  title: 'Sign up'
+  title: 'Sign In'
 })
 
-const onSubmit = async ({ name, email, password }: { name: string, email: string, password: string }) => {
-  await signUpWithEmailAndPassword(name, email, password)
+const onSubmit = async ({ email, password }: { email: string, password: string }) => {
+  // await signUpWithEmailAndPassword(name, email, password)
   // await signUpWithEmailAndPassword(state)
   // $nuxt.$router.push('/')
 }
@@ -19,26 +19,25 @@ const onSubmit = async ({ name, email, password }: { name: string, email: string
 <template>
   <UCard class="max-w-sm w-full bg-white/75 dark:bg-white/5 backdrop-blur">
     <UAuthForm
-      :fields="getFields('signup')"
-      :validate="(state: any) => validate(state, 'signup')"
+      :fields="getFields('signin')"
+      :validate="(state: any) => validate(state, 'signin')"
       :providers="getProviders()"
       align="top"
-      title="Create an account"
+      title="Welcome back"
       :ui="{ base: 'text-center', footer: 'text-center' }"
-      :submit-button="{ label: 'Create account' }"
+      :submit-button="{ trailingIcon: 'i-heroicons-arrow-right-20-solid' }"
       @submit="onSubmit"
     >
       <template #description>
-        Already have an account? <NuxtLink
-          to="/auth/signin"
+        Don't have an account? <NuxtLink
+          to="/auth/signup"
           class="text-primary font-medium"
         >
-          Login
+          Sign up
         </NuxtLink>.
       </template>
-
       <template #footer>
-        By signing up, you agree to our <NuxtLink
+        By signing in, you agree to our <NuxtLink
           to="/"
           class="text-primary font-medium"
         >

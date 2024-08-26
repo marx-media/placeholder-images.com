@@ -6,6 +6,8 @@ export default withNuxt(
   antfu({
     vue: true,
     typescript: true,
+    markdown: true,
+    yaml: true,
     rules: {
       'node/prefer-global/process': 'off',
       'antfu/top-level-function': 'off',

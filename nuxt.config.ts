@@ -1,12 +1,18 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   telemetry: false,
-  future: {
-    compatibilityVersion: 4
-  },
+  future: { compatibilityVersion: 4 },
   compatibilityDate: '2024-04-03',
   extends: ['@nuxt/ui-pro'],
-  modules: ['@nuxt/eslint', '@nuxt/ui', 'nuxt-vuefire'],
+  css: ['~/assets/css/main.css'],
+  modules: [
+    '@nuxt/eslint',
+    '@nuxt/ui',
+    '@pinia/nuxt',
+    '@nuxt/content',
+    '@vueuse/nuxt',
+    'nuxt-vuefire',
+  ],
   eslint: {
     config: {
       standalone: false,
