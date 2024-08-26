@@ -44,7 +44,7 @@ const createGeneration = async () => {
     <div>
       <UInput v-model="keyword" type="text" size="xl" class="relative" :ui="{ icon: { trailing: { pointer: 'pointer-events-auto' } } }" @keyup.enter="createGeneration">
         <template #trailing>
-          <UButton type="submit" label="Generate" trailing :loading="loading" :disabled="keyword.length === 0" @click="createGeneration" />
+          <UButton type="submit" icon="sparkles-20-solid" label="Generate" trailing :loading="loading" :disabled="keyword.length === 0" @click="createGeneration" />
         </template>
       </UInput>
     </div>

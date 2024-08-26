@@ -16,14 +16,14 @@ export default defineEventHandler(async (event) => {
   }, 'session-verification')
   const adminAuth = getAdminAuth(adminApp)
 
-  const verifiedSession = token ? await adminAuth.verifySessionCookie(token) : null
-  if (verifiedSession) {
-    try {
+  try {
+    const verifiedSession = token ? await adminAuth.verifySessionCookie(token) : null
+    if (verifiedSession) {
       const user = await adminAuth.getUser(verifiedSession.uid)
       event.context.user = user
-    } catch (error: any) {
-      console.error('[server] Error fetching user for token on auth middleware:', error.message)
     }
+  } catch (error: any) {
+    console.error('[server] Error fetching user for token on auth middleware:', error.message)
   }
 })
 

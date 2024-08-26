@@ -52,7 +52,6 @@ const generationId = ref('')
       </template>
     </ULandingHero>
     <UContainer>
-      <pre class="text-xs" v-text="{ currentUser }" />
     </UContainer>
   </div>
 </template>
