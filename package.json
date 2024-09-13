@@ -1,0 +1,37 @@
+{
+  "name": "placeholder-images.com",
+  "type": "module",
+  "private": true,
+  "packageManager": "pnpm@8.15.7+sha1.44793e979f677db082fa49826446aad5aa4ee6b8",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "prepare": "nuxt prepare",
+    "postinstall": "nuxt prepare",
+    "typecheck": "nuxt typecheck",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
+  "dependencies": {
+    "@iconify-json/heroicons": "^1.2.0",
+    "@iconify-json/simple-icons": "^1.2.2",
+    "@nuxt/content": "^2.13.2",
+    "@nuxt/fonts": "^0.8.0",
+    "@nuxt/image": "^1.8.0",
+    "@nuxt/ui-pro": "^1.4.2",
+    "@nuxtjs/supabase": "^1.4.0",
+    "@supabase/realtime-js": "^2.10.2",
+    "@vueuse/nuxt": "^11.0.3",
+    "nuxt": "^3.13.1",
+    "nuxt-og-image": "^3.0.1"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^3.5.1",
+    "@nuxt/eslint": "^0.5.7",
+    "eslint": "^9.10.0",
+    "supabase": "^1.192.5",
+    "vue-tsc": "^2.1.6"
+  }
+}
