@@ -10,7 +10,9 @@ export default defineNuxtConfig({
     '@nuxt/ui',
     '@vueuse/nuxt',
     'nuxt-og-image',
-    '@nuxtjs/supabase'
+    '@nuxtjs/supabase',
+    '@vueuse/nuxt',
+    '@pinia/nuxt'
   ],
 
   colorMode: {
@@ -46,8 +48,24 @@ export default defineNuxtConfig({
     redirectOptions: {
       login: '/auth/login',
       callback: '/',
-      include: ['/profile(/*)?'],
-    },
+      include: ['/profile(/*)?']
+    }
   },
-  compatibilityDate: '2024-07-11'
+  compatibilityDate: '2024-07-11',
+  runtimeConfig: {
+    leonardoApiKey: '',
+    openAi: {
+      apiKey: '',
+      organisationId: '',
+      projectId: ''
+    },
+    public: {
+      siteUrl: 'http://localhost:3000'
+    }
+  },
+  vite: {
+    optimizeDeps: {
+      include: ['lodash-es']
+    }
+  }
 })

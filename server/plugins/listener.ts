@@ -1,7 +1,8 @@
 import { createClient } from '@supabase/supabase-js'
-
-// generate random seed for picsum image
-const generateSeed = () => Math.floor(Math.random() * 1000)
+import { useCategoryService } from '../services/CategoryService'
+import { useGenerationService } from '../services/GenerationService'
+import { useImageService } from '../services/ImageService'
+import { useLeonardoService } from '../services/LeonardoService'
 
 export default defineNitroPlugin(() => {
   const { supabase: { serviceKey }, public: { supabase: { url } } } = useRuntimeConfig()
@@ -9,18 +10,25 @@ export default defineNitroPlugin(() => {
 
   client.channel('generations').on('postgres_changes', {
     event: 'INSERT', schema: 'public', table: 'generations'
-  }, (payload) => {
-    const id = payload.new.id
+  }, async (payload) => {
+    const { id, prompt } = payload.new
 
-    // random delay to simulate a long running task between 2000 and 5000 ms
-    const delay = Math.floor(Math.random() * 3000) + 2000
+    const { createOrUpdateCategory } = useCategoryService()
+    const { setGenerationStatus, setGenerationInfo } = useGenerationService()
+    const { storeImages } = useImageService()
+    const { createLeonardoGeneration, waitForLeonardoGeneration } = useLeonardoService()
 
-    setTimeout(async () => {
-      const images = [`https://picsum.photos/seed/${generateSeed()}/300/300`, `https://picsum.photos/seed/${generateSeed()}/300/300`]
+    try {
+      const leonardo_generation_id = await createLeonardoGeneration({ prompt })
+      const images = await waitForLeonardoGeneration(leonardo_generation_id)
 
-      await Promise.all(images.map(url => client.from('images').insert({ generation: id, url })))
+      const category = await createOrUpdateCategory(prompt)
 
-      await client.from('generations').update({ status: 'COMPLETED' }).eq('id', id)
-    }, delay)
+      await storeImages(id, images)
+      await setGenerationInfo(id, { leonardo_generation_id, category, status: 'COMPLETED' })
+    } catch (error: any) {
+      console.log(error)
+      await setGenerationStatus(id, 'ERROR')
+    }
   }).subscribe()
 })

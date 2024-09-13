@@ -5,18 +5,26 @@ import type { HeaderLink } from '@nuxt/ui-pro/types'
 const navigation = inject<Ref<NavItem[]>>('navigation', ref([]))
 
 const links: HeaderLink[] = [
-  { label: 'Pricing', to: '/pricing' },
+  { label: 'Pricing', to: '/pricing' }
 ]
 </script>
 
 <template>
   <UHeader :links="links">
     <template #logo>
-      Nuxt UI Pro <UBadge
-        label="SaaS"
-        variant="subtle"
-        class="mb-0.5"
-      />
+      <div class="flex items-center gap-2.5">
+        <div class="w-8 h-8 bg-gradient-to-b from-amber-600 via-orange-600 to-yellow-600 flex items-center justify-center rounded">
+          <UIcon name="i-heroicons-photo" class="text-2xl" />
+        </div>
+        <div class="text-sm leading-none">
+          <div class="font-bold">
+            Placeholder
+          </div>
+          <div class="font-light text-primary tracking-wider">
+            Images.com
+          </div>
+        </div>
+      </div>
     </template>
 
     <template #right>

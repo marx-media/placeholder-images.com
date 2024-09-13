@@ -1,4 +1,5 @@
 <script setup lang="ts">
+
 const { data: page } = await useAsyncData('index', () => queryContent('/').findOne())
 if (!page.value) {
   throw createError({ statusCode: 404, statusMessage: 'Page not found', fatal: true })
@@ -48,6 +49,28 @@ useSeoMeta({
         </div>
       </template>
     </ULandingHero>
+    <UContainer>
+      <UPage>
+        <template #left>
+          <UAside>
+            <UTabs
+              :items="[
+                { key: 'category', label: 'Category'},
+                { key: 'prompt', label: 'Prompt'},
+              ]"
+              :ui="{ list: { tab: { base: 'italic', size: 'text-xs'}}}"
+            >
+              <template #item="{ item }">
+                <GenerationCategories v-if="item.key === 'category'" />
+              </template>
+            </UTabs>
+          </UAside>
+        </template>
+        <UPageBody>
+          <GenerationGrid />
+        </UPageBody>
+      </UPage>
+    </UContainer>
   </div>
 </template>
 
