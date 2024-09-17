@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 
 const props = defineProps({
-  id: { type: String, default: '' },
+  id: { type: String, default: '', required: false },
   showTimer: { type: Boolean, default: false },
   delay: { type: Number, default: 200 },
   isLink: { type: Boolean, default: false }

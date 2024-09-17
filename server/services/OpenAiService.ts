@@ -17,7 +17,7 @@ export const useOpenAiService = () => {
     const response = await client.chat.completions.create({
       model: 'gpt-3.5-turbo',
       messages: [
-        { role: 'system', content: 'You will categorize keywords into single word categories based on their context in singular. Use the highest cateory you find for the keyword. Always respond in English and only with the choosen category.' },
+        { role: 'system', content: 'You will categorize keywords into single word categories based on their context in singular. Use the highest cateory you find for the keyword. Always respond in english and only with the choosen category.' },
         { role: 'user', content: 'Office building' },
         { role: 'assistant', content: 'Architecture' },
         { role: 'user', content: 'Dog' },

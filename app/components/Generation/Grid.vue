@@ -39,7 +39,12 @@ const unsubscribe = async () => {
   console.log('Unsubscribed from realtime')
 }
 
+const items = computed(() => [...realtime.value, ...data.value].slice(0, 15))
+
 watch(isRealtime, async v => v ? subscribe() : await unsubscribe(), { immediate: !import.meta.env.SSR })
+watch(ssrKey, () => {
+  realtime.value = []
+})
 
 onBeforeUnmount(async () => {
   await channel.unsubscribe()
@@ -61,7 +66,7 @@ onBeforeUnmount(async () => {
       </div>
     </div>
     <div class="grid grid-cols-3 gap-1">
-      <ImageWrapper v-for="{ id } in [...realtime, ...data]" :id="id" :key="id" is-link />
+      <ImageWrapper v-for="{ id } in items" :id="id" :key="id" is-link />
     </div>
   </div>
 </template>

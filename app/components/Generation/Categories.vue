@@ -6,7 +6,8 @@ import { useRouteQuery } from '@vueuse/router'
 const category = useRouteQuery('category', '')
 
 const client = useSupabaseClient()
-const { data } = useAsyncData('categories', async () => {
+const ssrKey = computed(() => `categories:${category.value}`)
+const { data } = useAsyncData(unref(ssrKey), async () => {
   const { data, error } = await client.from('categories').select('title, slug, items').order('title', { ascending: true })
   if (error) {
     throw error

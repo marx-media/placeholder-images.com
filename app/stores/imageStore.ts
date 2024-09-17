@@ -8,15 +8,32 @@ export interface FetchOptions {
 }
 
 export const useImageStore = defineStore('images', () => {
-  const client = useSupabaseClient()
-  const query = client.from('images').select(`id,created_at,generation!inner(prompt,category!inner(slug))`)
+  const generationStore = useGenerationStore()
 
-  const items = ref<Map<string, QueryData<typeof query>[number]>>(new Map())
+  const client = useSupabaseClient()
+  const getQuery = () => client.from('images').select(`id,created_at,generation!inner(id,prompt,category!inner(title,slug))`)
+
+  type Query = ReturnType<typeof getQuery>
+
+  const items = ref<Map<string, QueryData<Query>[number]>>(new Map())
   const currentId = ref<string>('')
   const item = computed(() => items.value.get(unref(currentId)))
 
+  const getImagesByGenerationId = (generationId: string) => computed<{ id: string | null }[]>(() => {
+    // @ts-expect-error ...
+    const images = Array.from(items.value.values()).filter(image => image.generation.id === generationId)
+    if (!images.length) {
+      const generation = generationStore.items.get(generationId)
+      return generation && generation.image_count ? Array.from({ length: generation.image_count }).map(() => ({ id: null })) : []
+    }
+    return images.map(image => ({ id: image.id }))
+  })
+
   const fetchList = async (options: FetchOptions = {}) => {
     const { page = 1, limit = 15, category = '' } = options
+
+    const query = getQuery()
+
     // apply category filter
     if (category) query.eq('generation.category.slug', category)
 
@@ -33,6 +50,8 @@ export const useImageStore = defineStore('images', () => {
   }
 
   const fetchSingle = async (id: string) => {
+    const query = getQuery()
+
     const { data, error } = await query.eq('id', id).single()
     if (error) throw error
     items.value.set(data.id, data)
@@ -68,6 +87,7 @@ export const useImageStore = defineStore('images', () => {
     items,
     currentId,
     item,
+    getImagesByGenerationId,
     fetchList,
     fetchSingle,
     setCurrentItem,

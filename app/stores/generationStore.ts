@@ -15,12 +15,16 @@ export const useGenerationStore = defineStore('generations', () => {
         'postgres_changes',
         { event: 'UPDATE', schema: 'public', table: 'generations', filter: `id=eq.${generationId}` },
         (payload: { new: Tables<'generations'> }) => {
-          const { new: generation } = payload
+          const generation = payload.new as Tables<'generations'>
+          console.log('generation update', generation)
+
           items.value.set(generation.id, generation)
 
           // cleanup
-          subscription.unsubscribe()
-          client.removeChannel(subscription)
+          if (['COMPLETED', 'ERROR'].includes(generation.status)) {
+            subscription.unsubscribe()
+            client.removeChannel(subscription)
+          }
         }
       ).subscribe()
   }
@@ -29,7 +33,7 @@ export const useGenerationStore = defineStore('generations', () => {
     const { data, error } = await client.from('generations').insert({ prompt }).select('id').single()
     if (error) throw error
     // @ts-expect-error ...
-    items.value.set(data.id, { ...data, status: 'PROGRESSING', prompt })
+    items.value.set(data.id, { ...data, status: 'PROCESSING', prompt })
     currentId.value = data.id
     listenToGenerationUpdates(data.id)
     useImageStore().listenToImagesByGenerationId(data.id)

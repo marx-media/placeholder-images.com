@@ -80,7 +80,13 @@ const url = computed(() => {
           <div class="flex-1">
             <div v-if="imageStore.item.generation.prompt" class="font-bold" v-text="imageStore.item.generation.prompt" />
             <USkeleton v-else class="h-2 w-[250px]" />
-            <div v-if="imageStore.item.created_at" class="text-xs" v-text="Intl.DateTimeFormat('en-Us', { dateStyle: 'medium', timeStyle: 'short' }).format(new Date(imageStore.item.created_at))" />
+            <div v-if="imageStore.item.created_at || imageStore.item.generation.category" class="flex items-center gap-2">
+              <ULink class="text-xs text-primary" :to="`/?category=${imageStore.item.generation.category.slug}`">
+                {{ imageStore.item.generation.category.title }}
+              </ULink>
+              <div>•</div>
+              <div class="text-xs" v-text="Intl.DateTimeFormat('en-Us', { dateStyle: 'medium', timeStyle: 'short' }).format(new Date(imageStore.item.created_at))" />
+            </div>
             <USkeleton v-else class="h-2 w-[150px]" />
           </div>
           <div><UButton icon="i-heroicons-x-mark-16-solid" class="rounded-full" variant="ghost" @click="() => imageStore.unsetCurrentItem()" /></div>
@@ -134,6 +140,7 @@ const url = computed(() => {
           </UInput>
         </UFormGroup>
       </UForm>
+      <pre v-text="imageStore.item" />
     </UCard>
   </UModal>
 </template>

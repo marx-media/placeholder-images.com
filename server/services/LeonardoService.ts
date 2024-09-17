@@ -1,12 +1,13 @@
+import type { CreateGenerationRequestBody, GeneratedImages } from '@leonardo-ai/sdk/sdk/models/operations/index.js'
 import { Leonardo } from '@leonardo-ai/sdk'
 import { TransparencyType } from '@leonardo-ai/sdk/sdk/models/operations/index.js'
 import { SdGenerationSchedulers, SdGenerationStyle, SdVersions } from '@leonardo-ai/sdk/sdk/models/shared/index.js'
 import { get } from 'lodash-es'
-import type { CreateGenerationRequestBody, GeneratedImages } from '@leonardo-ai/sdk/sdk/models/operations/index.js'
 import { sleep } from '../utils/sleep'
 
 export interface GenerationOptions {
   prompt: string
+  numImages: number
 }
 
 export const useLeonardoService = () => {
@@ -19,11 +20,11 @@ export const useLeonardoService = () => {
   const getPromt = (prompt: string) => `Create a high-contrast grayscaled, less detailed silhouette of a ${prompt}, depicted in a flat, two-dimensional vector graphic style, devoid of any intricate details or textures, against a flat gray gradient background that transitions from a dark charcoal gray at the top to a light misty gray at the bottom, with the silhouette itself rendered in a single, uniform darker gray tone, giving it a placeholder-like appearance, no hard gradient stops in background`
 
   const getImageGenerationPayload = (options: GenerationOptions): CreateGenerationRequestBody => {
-    const { prompt } = options
+    const { prompt, numImages } = options
     return {
       prompt: getPromt(prompt),
       negativePrompt: 'shadow, lighting, high detailed',
-      numImages: 1,
+      numImages,
       width: 1024,
       height: 576,
       numInferenceSteps: 10,

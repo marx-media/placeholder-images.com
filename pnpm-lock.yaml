@@ -35,9 +35,6 @@ importers:
       '@pinia/nuxt':
         specifier: ^0.5.4
         version: 0.5.4(magicast@0.3.5)(rollup@4.21.3)(typescript@5.6.2)(vue@3.5.6(typescript@5.6.2))
-      '@supabase/realtime-js':
-        specifier: ^2.10.6
-        version: 2.10.6
       '@vueuse/core':
         specifier: ^11.1.0
         version: 11.1.0(vue@3.5.6(typescript@5.6.2))
@@ -75,6 +72,9 @@ importers:
       '@supabase/auth-js':
         specifier: 2.65.0
         version: 2.65.0
+      '@supabase/realtime-js':
+        specifier: ^2.10.2
+        version: 2.10.2
       '@types/jsonwebtoken':
         specifier: ^9.0.7
         version: 9.0.7
@@ -1557,9 +1557,6 @@ packages:
 
   '@supabase/realtime-js@2.10.2':
     resolution: {integrity: sha512-qyCQaNg90HmJstsvr2aJNxK2zgoKh9ZZA8oqb7UT2LCh3mj9zpa3Iwu167AuyNxsxrUE8eEJ2yH6wLCij4EApA==}
-
-  '@supabase/realtime-js@2.10.6':
-    resolution: {integrity: sha512-Rg6WJyXvmxf+wrmnev9XY2rZp/mzFsaMzKthmsRsklcijsG79Ot2D7bpq9CSiv5qpjpGqK1m++c2/Hzhq4juGQ==}
 
   '@supabase/ssr@0.5.1':
     resolution: {integrity: sha512-+G94H/GZG0nErZ3FQV9yJmsC5Rj7dmcfCAwOt37hxeR1La+QTl8cE9whzYwPUrTJjMLGNXoO+1BMvVxwBAbz4g==}
@@ -7790,16 +7787,6 @@ snapshots:
       '@supabase/node-fetch': 2.6.15
 
   '@supabase/realtime-js@2.10.2':
-    dependencies:
-      '@supabase/node-fetch': 2.6.15
-      '@types/phoenix': 1.6.5
-      '@types/ws': 8.5.12
-      ws: 8.18.0
-    transitivePeerDependencies:
-      - bufferutil
-      - utf-8-validate
-
-  '@supabase/realtime-js@2.10.6':
     dependencies:
       '@supabase/node-fetch': 2.6.15
       '@types/phoenix': 1.6.5

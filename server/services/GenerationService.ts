@@ -27,6 +27,7 @@ export const useGenerationService = () => {
     category?: string
     status?: 'PROGRESSING' | 'COMPLETED' | 'ERROR'
     error?: any
+    image_count?: number
   }) => {
     const { data, error } = await client.from('generations').update(info).eq('id', id)
     if (error) throw error
