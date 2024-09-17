@@ -18,11 +18,6 @@ export default defineNuxtConfig({
   colorMode: {
     disableTransition: true
   },
-
-  routeRules: {
-
-  },
-
   devtools: {
     enabled: false
   },
