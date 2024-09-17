@@ -2,7 +2,11 @@
   "name": "placeholder-images.com",
   "type": "module",
   "private": true,
-  "packageManager": "pnpm@8.15.7+sha1.44793e979f677db082fa49826446aad5aa4ee6b8",
+  "packageManager": "pnpm@9.10.0",
+  "engines": {
+    "node": "20.16.0",
+    "pnpm": "9.10.0"
+  },
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
