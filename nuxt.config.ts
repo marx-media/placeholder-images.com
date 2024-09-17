@@ -6,14 +6,19 @@ export default defineNuxtConfig({
     '@nuxt/content',
     '@nuxt/eslint',
     '@nuxt/fonts',
-    '@nuxt/image',
     '@nuxt/ui',
     '@vueuse/nuxt',
-    'nuxt-og-image',
     '@nuxtjs/supabase',
     '@vueuse/nuxt',
     '@pinia/nuxt'
   ],
+
+  hooks: {
+    close: (nuxt) => {
+      if (!nuxt.options._prepare)
+        process.exit()
+    }
+  },
 
   colorMode: {
     disableTransition: true
